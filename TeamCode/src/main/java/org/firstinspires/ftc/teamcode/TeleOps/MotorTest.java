@@ -12,6 +12,12 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class MotorTest extends LinearOpMode {
     //Teleop bob = new Teleop();
     private DcMotor motor0;
+    private DcMotor motor1;
+    private DcMotor motor2;
+    private DcMotor motor3;
+    // motor4 doesn't exist yet, it's for the intake system.
+    // servo1 and color1 also don't exist right now.
+    private DcMotor motor4;
     private Servo servo1;
     private ColorSensor color1;
 
@@ -23,6 +29,9 @@ public class MotorTest extends LinearOpMode {
             // motor2 = "top right"
             // motor3 = "bottom right"
         motor0=hardwareMap.get(DcMotor.class,"top left");
+        motor1=hardwareMap.get(DcMotor.class,"bottom left");
+        motor2=hardwareMap.get(DcMotor.class,"top right");
+        motor3=hardwareMap.get(DcMotor.class,"bottom right");
         //servo1=hardwareMap.get(Servo.class,"thing");
         //color1=hardwareMap.get(ColorSensor.class,"???");
 
@@ -41,10 +50,29 @@ public class MotorTest extends LinearOpMode {
             // controller stuff!
             // left_stick_y is the y-value of the left joystick, obviously
             // on the gamepad, -1 = top position, and 1 = bottom position
-            double tgtPower1 = -this.gamepad1.left_stick_y;
-            motor0.setPower(tgtPower1);
-            telemetry.addData("M0 Target Power",tgtPower1);
+
+            double tgtPower0 = 0.5*-this.gamepad1.left_stick_y+this.gamepad1.left_stick_x;
+            double tgtPower1 = 0.5*-this.gamepad1.left_stick_y-this.gamepad1.left_stick_x;
+            double tgtPower2 = 0.5*this.gamepad1.left_stick_y-this.gamepad1.left_stick_x;
+            double tgtPower3 = 0.5*this.gamepad1.left_stick_y+this.gamepad1.left_stick_x;
+
+            motor0.setPower(tgtPower0);
+            // motor1 (the back left motor) has been disabled because the motor isn't properly attatched
+            //motor1.setPower(tgtPower1);
+            motor2.setPower(tgtPower2);
+            motor3.setPower(tgtPower3);
+
+            telemetry.addData("M0 Target Power",tgtPower0);
             telemetry.addData("Motor0 Power",motor0.getPower());
+
+            telemetry.addData("M1 Target Power",tgtPower1);
+            telemetry.addData("Motor1 Power",motor1.getPower());
+
+            telemetry.addData("M2 Target Power",tgtPower2);
+            telemetry.addData("Motor2 Power",motor2.getPower());
+
+            telemetry.addData("M3 Target Power",tgtPower3);
+            telemetry.addData("Motor3 Power",motor3.getPower());
 
             // setVelocity() sets the RPM (I think)
             // setVelocity() is only available for DcMotorEx
@@ -55,6 +83,7 @@ public class MotorTest extends LinearOpMode {
             //servo1.getPosition();
 
             // returns the amount of blue color detected
+            // this also works for other colors
             //double num1 = color1.blue();
         }
     }
