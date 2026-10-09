@@ -92,6 +92,7 @@ public class MotorTest extends LinearOpMode {
             telemetry.addData("Motor3 Power",motor3.getPower());
 
             telemetry.addData("intake is on",intakeIsOn);
+            //telemetry.addData("Intake Power",motor4.getPower());
 
             // setVelocity() sets the RPM (I think)
             // setVelocity() is only available for DcMotorEx
