@@ -35,6 +35,8 @@ public class MotorTest extends LinearOpMode {
         //servo1=hardwareMap.get(Servo.class,"thing");
         //color1=hardwareMap.get(ColorSensor.class,"???");
 
+        boolean intakeIsOn = false;
+
         telemetry.addData("Status","Initialized");
         telemetry.update();
         waitForStart();
@@ -47,20 +49,35 @@ public class MotorTest extends LinearOpMode {
             // a power of 1 is a relatively fast spin speed, so I set it to 0.25.
             //motor0.setPower(0.25);
 
-            // controller stuff!
-            // left_stick_y is the y-value of the left joystick, obviously
-            // on the gamepad, -1 = top position, and 1 = bottom position
+            ////// controller stuff
+            // left stick controls forewards/backwards movement, and strafing
+            // right stick controls turning
+            // for y values, -1 = top position, and 1 = bottom position
+            // for x values, -1 = left position, and 1 = right position
 
-            double tgtPower0 = 0.5*-this.gamepad1.left_stick_y+this.gamepad1.left_stick_x;
-            double tgtPower1 = 0.5*-this.gamepad1.left_stick_y-this.gamepad1.left_stick_x;
-            double tgtPower2 = 0.5*this.gamepad1.left_stick_y-this.gamepad1.left_stick_x;
-            double tgtPower3 = 0.5*this.gamepad1.left_stick_y+this.gamepad1.left_stick_x;
+
+            double tgtPower0 = 0.3*(-this.gamepad1.left_stick_y+this.gamepad1.left_stick_x)-0.3*this.gamepad1.right_stick_x;
+            // remember to change tgtPower1 back to normal after the motor is fixed!
+            double tgtPower1 = 0*(-this.gamepad1.left_stick_y-this.gamepad1.left_stick_x)-0.3*this.gamepad1.right_stick_x;
+            double tgtPower2 = 0.3*(this.gamepad1.left_stick_y+this.gamepad1.left_stick_x)-0.3*this.gamepad1.right_stick_x;
+            double tgtPower3 = 0.3*(this.gamepad1.left_stick_y-this.gamepad1.left_stick_x)-0.3*this.gamepad1.right_stick_x;
 
             motor0.setPower(tgtPower0);
             // motor1 (the back left motor) has been disabled because the motor isn't properly attatched
             //motor1.setPower(tgtPower1);
             motor2.setPower(tgtPower2);
             motor3.setPower(tgtPower3);
+
+            // toggles the intake motor on and off when the X button is pressed
+            if(this.gamepad1.xWasReleased()){
+                if(intakeIsOn){
+                    intakeIsOn=false;
+                    //motor4.setPower(0);
+                }else{
+                    intakeIsOn=true;
+                    //motor4.setPower(0.5);
+                }
+            }
 
             telemetry.addData("M0 Target Power",tgtPower0);
             telemetry.addData("Motor0 Power",motor0.getPower());
@@ -73,6 +90,8 @@ public class MotorTest extends LinearOpMode {
 
             telemetry.addData("M3 Target Power",tgtPower3);
             telemetry.addData("Motor3 Power",motor3.getPower());
+
+            telemetry.addData("intake is on",intakeIsOn);
 
             // setVelocity() sets the RPM (I think)
             // setVelocity() is only available for DcMotorEx
