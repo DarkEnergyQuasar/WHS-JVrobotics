@@ -47,6 +47,7 @@ public class MotorTest extends LinearOpMode {
 
             // setPower() can be from -1 to 1
             //motor0.setPower(0.25);
+
             // setPosition() for a servo can be from 0 to 1 for most servos,
             // with 0 being 0 degrees and 1 being 180 degrees.
 
