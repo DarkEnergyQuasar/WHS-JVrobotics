@@ -23,15 +23,12 @@ public class MotorTest extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException{
-        // motor names:
-            // motor0 = "top left"
-            // motor1 = "bottom left"
-            // motor2 = "top right"
-            // motor3 = "bottom right"
-        motor0=hardwareMap.get(DcMotor.class,"top left");
-        motor1=hardwareMap.get(DcMotor.class,"bottom left");
-        motor2=hardwareMap.get(DcMotor.class,"top right");
-        motor3=hardwareMap.get(DcMotor.class,"bottom right");
+        motor0=hardwareMap.get(DcMotor.class,"front left");
+        motor1=hardwareMap.get(DcMotor.class,"back left");
+        motor2=hardwareMap.get(DcMotor.class,"front right");
+        motor3=hardwareMap.get(DcMotor.class,"back right");
+        //motor4=hardwareMap.get(DcMotor.class,"intake");
+
         //servo1=hardwareMap.get(Servo.class,"thing");
         //color1=hardwareMap.get(ColorSensor.class,"???");
 
