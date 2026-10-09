@@ -68,6 +68,7 @@ public class MotorTest extends LinearOpMode {
             // motor1 (the back left motor) has been disabled because the motor isn't properly attatched
             //motor1.setPower(tgtPower1);
             motor2.setPower(tgtPower2);
+            // motor3 (the back right motor) works, but gets stuck sometimes; find out what is causing the problem and fix it.
             motor3.setPower(tgtPower3);
 
             // toggles the intake motor on and off when the X button is pressed
