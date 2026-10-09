@@ -46,8 +46,9 @@ public class MotorTest extends LinearOpMode {
             telemetry.update();
 
             // setPower() can be from -1 to 1
-            // a power of 1 is a relatively fast spin speed, so I set it to 0.25.
             //motor0.setPower(0.25);
+            // setPosition() for a servo can be from 0 to 1 for most servos,
+            // with 0 being 0 degrees and 1 being 180 degrees.
 
             ////// controller stuff
             // left stick controls forewards/backwards movement, and strafing
@@ -56,11 +57,11 @@ public class MotorTest extends LinearOpMode {
             // for x values, -1 = left position, and 1 = right position
 
 
-            double tgtPower0 = 0.3*(-this.gamepad1.left_stick_y+this.gamepad1.left_stick_x)-0.3*this.gamepad1.right_stick_x;
+            double tgtPower0 = -0.3*(-this.gamepad1.left_stick_y+this.gamepad1.left_stick_x)-0.3*this.gamepad1.right_stick_x;
             // remember to change tgtPower1 back to normal after the motor is fixed!
-            double tgtPower1 = 0*(-this.gamepad1.left_stick_y-this.gamepad1.left_stick_x)-0.3*this.gamepad1.right_stick_x;
-            double tgtPower2 = 0.3*(this.gamepad1.left_stick_y+this.gamepad1.left_stick_x)-0.3*this.gamepad1.right_stick_x;
-            double tgtPower3 = 0.3*(this.gamepad1.left_stick_y-this.gamepad1.left_stick_x)-0.3*this.gamepad1.right_stick_x;
+            double tgtPower1 = -0*(-this.gamepad1.left_stick_y-this.gamepad1.left_stick_x)-0.3*this.gamepad1.right_stick_x;
+            double tgtPower2 = -0.3*(this.gamepad1.left_stick_y+this.gamepad1.left_stick_x)-0.3*this.gamepad1.right_stick_x;
+            double tgtPower3 = -0.3*(this.gamepad1.left_stick_y-this.gamepad1.left_stick_x)-0.3*this.gamepad1.right_stick_x;
 
             motor0.setPower(tgtPower0);
             // motor1 (the back left motor) has been disabled because the motor isn't properly attatched
