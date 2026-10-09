@@ -35,7 +35,16 @@ public class MotorTest extends LinearOpMode {
             telemetry.update();
 
             // setPower() can be from -1 to 1
-            motor0.setPower(1);
+            // a power of 1 is a relatively fast spin speed, so I set it to 0.25.
+            //motor0.setPower(0.25);
+
+            // controller stuff!
+            // left_stick_y is the y-value of the left joystick, obviously
+            // on the gamepad, -1 = top position, and 1 = bottom position
+            double tgtPower1 = -this.gamepad1.left_stick_y;
+            motor0.setPower(tgtPower1);
+            telemetry.addData("M0 Target Power",tgtPower1);
+            telemetry.addData("Motor0 Power",motor0.getPower());
 
             // setVelocity() sets the RPM (I think)
             // setVelocity() is only available for DcMotorEx
