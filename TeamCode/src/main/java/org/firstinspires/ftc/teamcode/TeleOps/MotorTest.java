@@ -19,7 +19,7 @@ public class MotorTest extends LinearOpMode {
     // servo1 and color1 also don't exist right now.
     private DcMotor motor4;
     private Servo servo1;
-    private ColorSensor color1;
+    //private ColorSensor color1;
 
     @Override
     public void runOpMode() throws InterruptedException{
@@ -27,8 +27,8 @@ public class MotorTest extends LinearOpMode {
         motor1=hardwareMap.get(DcMotor.class,"back left");
         motor2=hardwareMap.get(DcMotor.class,"front right");
         motor3=hardwareMap.get(DcMotor.class,"back right");
-        //motor4=hardwareMap.get(DcMotor.class,"intake");
-
+        motor4=hardwareMap.get(DcMotor.class,"intake");
+        motor5=hardwareMap.get(DcMotor.class,"slide");
         //servo1=hardwareMap.get(Servo.class,"thing");
         //color1=hardwareMap.get(ColorSensor.class,"???");
 
@@ -61,7 +61,7 @@ public class MotorTest extends LinearOpMode {
             // for y values, -1 = top position, and 1 = bottom position
             // for x values, -1 = left position, and 1 = right position
             // A button toggles intake
-            // X button toggles turbo power (boost forewards movement, but remove straffing)
+            // X button toggles turbo power (boost forwards movement, but remove strafing)
             // B button extends or retracts ball dispenser
 
             if(powerMode){
@@ -80,19 +80,23 @@ public class MotorTest extends LinearOpMode {
             motor1.setPower(tgtPower1);
             motor2.setPower(tgtPower2);
             // motor3 (the back right motor) works, but gets stuck sometimes due to a loose bolt. If the motors get stuck,
-            // check all of the bolts on the motors
+            // check the bolts on all of the motors
             motor3.setPower(tgtPower3);
+            motor4.setPower(tgtPower4);
+            // figure out how to move to position
+            /motor5.
 
             // toggles the intake motor on and off when the A button is pressed
             if(this.gamepad1.aWasReleased()){
                 if(intakeIsOn){
                     intakeIsOn=false;
-                    //motor4.setPower(0);
+                    motor4.setPower(0);
                 }else{
                     intakeIsOn=true;
-                    //motor4.setPower(0.5);
+                    motor4.setPower(0.5);
                 }
             }
+
 
             // toggles "power mode" when X button is pressed
             if(this.gamepad1.xWasReleased()){
