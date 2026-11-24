@@ -15,10 +15,10 @@ public class MotorTest extends LinearOpMode {
     private DcMotor motor1;
     private DcMotor motor2;
     private DcMotor motor3;
-    // motor4 doesn't exist yet, it's for the intake system.
-    // servo1 and color1 also don't exist right now.
     private DcMotor motor4;
+    private DcMotor motor5;
     private Servo servo1;
+    private Servo servo2;
     //private ColorSensor color1;
 
     @Override
@@ -29,17 +29,19 @@ public class MotorTest extends LinearOpMode {
         motor3=hardwareMap.get(DcMotor.class,"back right");
         motor4=hardwareMap.get(DcMotor.class,"intake");
         motor5=hardwareMap.get(DcMotor.class,"slide");
-        //servo1=hardwareMap.get(Servo.class,"thing");
+        servo1=hardwareMap.get(Servo.class,"dispenser 1");
+        servo2=hardwareMap.get(Servo.class,"dispenser 2");
         //color1=hardwareMap.get(ColorSensor.class,"???");
 
         boolean intakeIsOn = false;
         boolean powerMode = false;
+        boolean slideExtended = false;
         double tgtPower0 = 0;
         double tgtPower1 = 0;
         double tgtPower2 = 0;
         double tgtPower3 = 0;
         double tgtPower4 = 0;
-        double tgtPower5 = 0;
+        double tgtPosition = 0;
 
         telemetry.addData("Status","Initialized");
         telemetry.update();
@@ -79,12 +81,11 @@ public class MotorTest extends LinearOpMode {
             motor0.setPower(tgtPower0);
             motor1.setPower(tgtPower1);
             motor2.setPower(tgtPower2);
-            // motor3 (the back right motor) works, but gets stuck sometimes due to a loose bolt. If the motors get stuck,
-            // check the bolts on all of the motors
             motor3.setPower(tgtPower3);
             motor4.setPower(tgtPower4);
             // figure out how to move to position
-            /motor5.
+            // 25 motor rotations = 1 gear rotation = ~0.5 of a viperslide segment
+            motor5.setTargetPosition(tgtPosition);
 
             // toggles the intake motor on and off when the A button is pressed
             if(this.gamepad1.aWasReleased()){
@@ -108,6 +109,15 @@ public class MotorTest extends LinearOpMode {
             }
 
             // extends or retracts ball dispenser when B button is pressed
+            if(this.gamepad1.bWasPressed()){
+                if(slideExtended){
+                    slideExtended=false;
+                    tgtPosition=0;
+                }else{
+                    slideExtended=true;
+                    tgtPosition=2;
+                }
+            }
 
             telemetry.addData("M0 Target Power",tgtPower0);
             telemetry.addData("Motor0 Power",motor0.getPower());
@@ -122,7 +132,7 @@ public class MotorTest extends LinearOpMode {
             telemetry.addData("Motor3 Power",motor3.getPower());
 
             telemetry.addData("intake is on",intakeIsOn);
-            //telemetry.addData("Intake Power",motor4.getPower());
+            telemetry.addData("Intake Power",motor4.getPower());
 
             telemetry.addData("turbo power mode",powerMode);
 
